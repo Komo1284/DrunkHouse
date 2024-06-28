@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Drink {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "drink_id")
     private Long id;
 
