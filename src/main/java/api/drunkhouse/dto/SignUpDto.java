@@ -17,4 +17,14 @@ public class SignUpDto {
         this.userName = userName;
         this.password = password;
     }
+
+    public Member setMember() {
+        return new Member(
+                userName,
+                password,
+                nick,
+                gender,
+                birth
+        );
+    }
 }

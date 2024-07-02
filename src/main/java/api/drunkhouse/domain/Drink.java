@@ -1,15 +1,13 @@
 package api.drunkhouse.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Drink {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,12 +16,9 @@ public class Drink {
 
     private String name;
     private int abv;
-    private int bottleSize;
-    private int price;
     private String content;
-    private Category category;
 
-    @OneToMany(mappedBy = "drink")
-    private List<Review> reviews = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
 }

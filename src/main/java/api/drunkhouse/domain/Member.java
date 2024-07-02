@@ -2,6 +2,7 @@ package api.drunkhouse.domain;
 
 import api.drunkhouse.dto.SignUpDto;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,21 +25,24 @@ public class Member {
 
     private String nick;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     private String birth;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 
     public Member(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
 
-    public Member setMemberToSignUpDto(SignUpDto dto){
-        this.userName = dto.getUserName();
-        this.password = dto.getPassword();
-        this.nick = dto.getNick();
-        this.gender = dto.getGender();
-        this.birth = dto.getBirth();
-        return this;
+    public Member(String userName, String password, String nick, Gender gender, String birth) {
+        this.userName = userName;
+        this.password = password;
+        this.nick = nick;
+        this.gender = gender;
+        this.birth = birth;
     }
 }

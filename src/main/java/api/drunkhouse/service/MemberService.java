@@ -18,12 +18,11 @@ public class MemberService {
         return memberRepository.findByUserNameAndPassword(userName, password);
     }
 
-    public int signUp(SignUpDto memberDto) {
-        if (memberRepository.existsByUserName(memberDto.getUserName())) {
+    public int signUp(SignUpDto dto) {
+        if (memberRepository.existsByUserName(dto.getUserName())) {
             return 0;
         }
-        Member member = new Member();
-        member = member.setMemberToSignUpDto(memberDto);
+        Member member = dto.setMember();
         memberRepository.save(member);
         return 1;
     }
