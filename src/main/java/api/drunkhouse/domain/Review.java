@@ -24,6 +24,9 @@ public class Review {
     private Drink drink;
 
     private String title;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String content;
 
 
