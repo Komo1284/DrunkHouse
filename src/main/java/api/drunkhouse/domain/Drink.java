@@ -16,7 +16,12 @@ public class Drink {
 
     private String name;
     private int abv;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String content;
+
+    private String profile;
 
     @Enumerated(EnumType.STRING)
     private Category category;

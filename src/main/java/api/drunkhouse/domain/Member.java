@@ -1,6 +1,7 @@
 package api.drunkhouse.domain;
 
 import api.drunkhouse.dto.SignUpDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class Member {
 
     private String birth;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 

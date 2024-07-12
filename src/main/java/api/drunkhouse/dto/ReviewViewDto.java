@@ -1,12 +1,9 @@
 package api.drunkhouse.dto;
 
-import api.drunkhouse.domain.Drink;
-import api.drunkhouse.domain.Review;
-import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
-public class ReviewsDto {
+public class ReviewViewDto {
 
     private Long id;
     private String drinkName;
@@ -14,7 +11,7 @@ public class ReviewsDto {
     private String title;
     private String content;
 
-    public ReviewsDto(Long id, String drinkName, int drinkAbv, String title, String content) {
+    public ReviewViewDto(Long id, String drinkName, int drinkAbv, String title, String content) {
         this.id = id;
         this.drinkName = drinkName;
         this.drinkAbv = drinkAbv;

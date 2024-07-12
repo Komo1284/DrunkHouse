@@ -2,8 +2,7 @@ package api.drunkhouse.service;
 
 import api.drunkhouse.dto.DrinkListDto;
 import api.drunkhouse.dto.DrinkSearchCondition;
-import api.drunkhouse.dto.ReviewSearchCondition;
-import api.drunkhouse.repository.ReviewRepository;
+import api.drunkhouse.repository.DrinkRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,13 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
-public class ReviewService {
+@RequiredArgsConstructor
+public class DrinkService {
 
-    private final ReviewRepository reviewRepository;
+    private final DrinkRepository drinkRepository;
 
-    public Page<DrinkListDto> searchReviews(Long id, DrinkSearchCondition condition, Pageable pageable) {
-        return reviewRepository.searchReviews(id, condition, pageable);
+    public Page<DrinkListDto> searchDrinks(DrinkSearchCondition condition, Pageable pageable) {
+        return drinkRepository.searchDrinks(condition, pageable);
     }
 }
