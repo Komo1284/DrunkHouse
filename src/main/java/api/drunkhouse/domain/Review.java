@@ -29,5 +29,10 @@ public class Review {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-
+    public Review(Member member, Drink drink, String title, String content) {
+        this.member = member;
+        this.drink = drink;
+        this.title = title;
+        this.content = content;
+    }
 }
