@@ -1,10 +1,7 @@
 package api.drunkhouse.service;
 
 import api.drunkhouse.domain.Review;
-import api.drunkhouse.dto.AddReviewDto;
-import api.drunkhouse.dto.DrinkListDto;
-import api.drunkhouse.dto.DrinkSearchCondition;
-import api.drunkhouse.dto.ReviewSearchCondition;
+import api.drunkhouse.dto.*;
 import api.drunkhouse.repository.DrinkRepository;
 import api.drunkhouse.repository.MemberRepository;
 import api.drunkhouse.repository.ReviewRepository;
@@ -36,5 +33,10 @@ public class ReviewService {
                         dto.getContent()
                 )
         );
+    }
+
+    public void update(Long reviewId, UpdateReviewDto dto) {
+        Review review = reviewRepository.findById(reviewId).get();
+        review.update(dto);
     }
 }

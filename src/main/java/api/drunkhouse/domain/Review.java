@@ -1,5 +1,6 @@
 package api.drunkhouse.domain;
 
+import api.drunkhouse.dto.UpdateReviewDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -34,5 +35,10 @@ public class Review {
         this.drink = drink;
         this.title = title;
         this.content = content;
+    }
+
+    public void update(UpdateReviewDto dto) {
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
     }
 }

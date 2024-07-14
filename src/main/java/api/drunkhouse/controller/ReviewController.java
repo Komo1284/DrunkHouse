@@ -52,8 +52,9 @@ public class ReviewController {
     }
 
     @PutMapping("/{reviewId}")
-    public String UpdateReview(@PathVariable("reviewId") Long reviewId) {
-        return "";
+    public ResponseEntity<Review> UpdateReview(@PathVariable("reviewId") Long reviewId, UpdateReviewDto dto) {
+        reviewService.update(reviewId, dto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{reviewId}")
