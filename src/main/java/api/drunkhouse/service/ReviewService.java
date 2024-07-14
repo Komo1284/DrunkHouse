@@ -33,7 +33,7 @@ public class ReviewService {
                         memberRepository.findById(dto.getMemberId()).get(),
                         drinkRepository.findById(dto.getDrinkId()).get(),
                         dto.getTitle(),
-                        dto.getDrinkContent()
+                        dto.getContent()
                 )
         );
     }

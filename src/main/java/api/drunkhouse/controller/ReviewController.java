@@ -39,7 +39,7 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity<Review> AddReview(AddReviewDto dto, MultipartFile file) throws IOException {
+    public ResponseEntity<Review> AddReview(AddReviewDto dto, @RequestParam(required = false) MultipartFile file) throws IOException {
         if (dto.getDrinkId() == null) {
             dto.setDrinkId(drinkService.AddDrink(dto, file));
         }

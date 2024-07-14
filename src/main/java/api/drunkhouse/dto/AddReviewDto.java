@@ -16,7 +16,7 @@ public class AddReviewDto {
     private String content;
 
     private String drinkName;
-    private int drinkAbv;
+    private Integer drinkAbv;
     private String drinkContent;
     private Category drinkCategory;
 
