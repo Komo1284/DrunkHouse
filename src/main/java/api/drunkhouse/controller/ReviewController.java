@@ -3,6 +3,7 @@ package api.drunkhouse.controller;
 import api.drunkhouse.domain.Member;
 import api.drunkhouse.domain.Review;
 import api.drunkhouse.dto.*;
+import api.drunkhouse.repository.ReviewRepository;
 import api.drunkhouse.service.DrinkService;
 import api.drunkhouse.service.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final DrinkService drinkService;
+    private final ReviewRepository reviewRepository;
 
     @GetMapping("/{memberId}")
     public Map<String, Object> getReviews(@PathVariable("memberId") Long memberId, DrinkSearchCondition condition,
@@ -49,14 +51,15 @@ public class ReviewController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public String UpdateReview(@PathVariable("id") Long id) {
+    @PutMapping("/{reviewId}")
+    public String UpdateReview(@PathVariable("reviewId") Long reviewId) {
         return "";
     }
 
-    @DeleteMapping("/{id}")
-    public String DeleteReview(@PathVariable("id") Long id) {
-        return  "";
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<Review> DeleteReview(@PathVariable("reviewId") Long reviewId) {
+        reviewRepository.deleteById(reviewId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
