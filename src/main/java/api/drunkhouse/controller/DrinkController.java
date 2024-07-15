@@ -50,8 +50,15 @@ public class DrinkController {
     }
 
     @PutMapping("/{drinkId}")
-    public ResponseEntity<Object> updateDrink(@PathVariable Long drinkId, DrinkUpdateDto dto, MultipartFile file) throws IOException {
-        return drinkService.update(drinkId, dto, file);
+    public ResponseEntity<Object> updateDrink(@PathVariable Long drinkId, DrinkUpdateDto dto,
+                                              @RequestParam(required = false) MultipartFile file) throws IOException {
+
+        if (!file.isEmpty()) {
+            return drinkService.update(drinkId, dto, file);
+        } else {
+            return drinkService.updateNotChangeProfile(drinkId, dto);
+        }
+
     }
 
     @DeleteMapping("/{drinkId}")

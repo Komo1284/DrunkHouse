@@ -97,4 +97,16 @@ public class DrinkService {
         drink.hideDrink();
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    public ResponseEntity<Object> updateNotChangeProfile(Long drinkId, DrinkUpdateDto dto) {
+        Drink drink = drinkRepository.findById(drinkId).orElse(null);
+        if (drink == null) {
+            ErrorResponse errorResponse = new ErrorResponse("0001", "Drink not found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
+
+        drink.update(dto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
