@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -38,6 +39,11 @@ public class DrinkController {
     @GetMapping("/{id}")
     public DrinkViewDto getDrink(@PathVariable Long id) {
         return drinkService.getDrink(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<Object> addDrink(@RequestParam Long drinkId) {
+        return drinkService.addDrink(drinkId);
     }
 
 }
