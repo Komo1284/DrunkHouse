@@ -8,6 +8,8 @@ import api.drunkhouse.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,5 +40,13 @@ public class ReviewService {
     public void update(Long reviewId, UpdateReviewDto dto) {
         Review review = reviewRepository.findById(reviewId).get();
         review.update(dto);
+    }
+
+    public ResponseEntity<ReviewViewDto> getReview(Long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElse(null);
+        if (review == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(new ReviewViewDto(review), HttpStatus.OK);
     }
 }

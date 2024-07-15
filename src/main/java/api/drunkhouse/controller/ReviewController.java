@@ -28,8 +28,8 @@ public class ReviewController {
     private final DrinkService drinkService;
     private final ReviewRepository reviewRepository;
 
-    @GetMapping("/{memberId}")
-    public Map<String, Object> getReviews(@PathVariable("memberId") Long memberId, DrinkSearchCondition condition,
+    @GetMapping
+    public Map<String, Object> getReviews(@RequestParam Long memberId, DrinkSearchCondition condition,
                                           @PageableDefault(size = 10, page = 0) Pageable pageable) {
         Map<String, Object> map = new HashMap<>();
         Page<DrinkListDto> result = reviewService.searchReviews(memberId, condition, pageable);
@@ -40,13 +40,17 @@ public class ReviewController {
         return map;
     }
 
+    @GetMapping("/{reviewId}")
+    public ResponseEntity<ReviewViewDto> getReview(@PathVariable("reviewId") Long reviewId) {
+        return reviewService.getReview(reviewId);
+    }
+
     @PostMapping
     public ResponseEntity<Review> AddReview(AddReviewDto dto, @RequestParam(required = false) MultipartFile file) throws IOException {
         if (dto.getDrinkId() == null) {
             dto.setDrinkId(drinkService.AddDrink(dto, file));
         }
 
-        System.out.println(dto.getDrinkId());
         reviewService.AddReview(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
