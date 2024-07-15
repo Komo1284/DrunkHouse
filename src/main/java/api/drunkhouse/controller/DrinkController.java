@@ -3,6 +3,7 @@ package api.drunkhouse.controller;
 import api.drunkhouse.domain.Drink;
 import api.drunkhouse.dto.DrinkListDto;
 import api.drunkhouse.dto.DrinkSearchCondition;
+import api.drunkhouse.dto.DrinkUpdateDto;
 import api.drunkhouse.dto.DrinkViewDto;
 import api.drunkhouse.repository.DrinkRepository;
 import api.drunkhouse.service.DrinkService;
@@ -12,7 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,14 +39,24 @@ public class DrinkController {
         return map;
     }
 
-    @GetMapping("/{id}")
-    public DrinkViewDto getDrink(@PathVariable Long id) {
-        return drinkService.getDrink(id);
+    @GetMapping("/{drinkId}")
+    public DrinkViewDto getDrink(@PathVariable Long drinkId) {
+        return drinkService.getDrink(drinkId);
     }
 
     @PostMapping
     public ResponseEntity<Object> addDrink(@RequestParam Long drinkId) {
         return drinkService.addDrink(drinkId);
+    }
+
+    @PutMapping("/{drinkId}")
+    public ResponseEntity<Object> updateDrink(@PathVariable Long drinkId, DrinkUpdateDto dto, MultipartFile file) throws IOException {
+        return drinkService.update(drinkId, dto, file);
+    }
+
+    @DeleteMapping("/{drinkId}")
+    public ResponseEntity<Object> deleteDrink(@PathVariable Long drinkId) {
+        return drinkService.delete(drinkId);
     }
 
 }

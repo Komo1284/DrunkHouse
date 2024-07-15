@@ -69,4 +69,32 @@ public class DrinkService {
         drink.showDrink();
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    public ResponseEntity<Object> update(Long drinkId, DrinkUpdateDto dto, MultipartFile file) throws IOException {
+        Drink drink = drinkRepository.findById(drinkId).orElse(null);
+        if (drink == null) {
+            ErrorResponse errorResponse = new ErrorResponse("0001", "Drink not found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
+
+        dto.setProfile(imageService.imageUploadFromFile(file));
+        drink.update(dto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+    public ResponseEntity<Object> delete(Long drinkId) {
+        Drink drink = drinkRepository.findById(drinkId).orElse(null);
+        if (drink == null) {
+            ErrorResponse errorResponse = new ErrorResponse("0001", "Drink not found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        } else if (drink.getHide() == Hide.HIDE) {
+            ErrorResponse errorResponse = new ErrorResponse("0002", "Drink is already delete");
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
+
+        drink.hideDrink();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
