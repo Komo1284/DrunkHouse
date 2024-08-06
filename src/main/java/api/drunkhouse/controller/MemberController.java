@@ -2,6 +2,7 @@ package api.drunkhouse.controller;
 
 import api.drunkhouse.domain.Member;
 import api.drunkhouse.dto.LoginDto;
+import api.drunkhouse.dto.MemberDto;
 import api.drunkhouse.dto.SignUpDto;
 import api.drunkhouse.repository.MemberRepository;
 import api.drunkhouse.service.MemberService;
@@ -20,8 +21,8 @@ public class MemberController {
     private final MemberRepository memberRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<Member> login(@RequestBody LoginDto member) {
-        Member findMember = memberService.login(member.getUserName(), member.getPassword());
+    public ResponseEntity<MemberDto> login(@RequestBody LoginDto member) {
+        MemberDto findMember = memberService.login(member.getUserName(), member.getPassword());
         if (findMember != null) {
             return new ResponseEntity<>(findMember,HttpStatus.OK);
         }
